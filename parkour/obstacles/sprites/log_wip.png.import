@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckhouahblg6jc"
-path="res://.godot/imported/log.png-76a7abccf43e06fd97430ead6086cf2e.ctex"
+uid="uid://cotcbujsbm351"
+path="res://.godot/imported/log_wip.png-dc8cf416594c4f9fb8d352ae9ec22dbe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://parkour/obstacles/sprites/log.png"
-dest_files=["res://.godot/imported/log.png-76a7abccf43e06fd97430ead6086cf2e.ctex"]
+source_file="res://parkour/obstacles/sprites/log_wip.png"
+dest_files=["res://.godot/imported/log_wip.png-dc8cf416594c4f9fb8d352ae9ec22dbe.ctex"]
 
 [params]
 

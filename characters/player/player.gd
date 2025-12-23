@@ -1,17 +1,17 @@
 extends CharacterBody2D
 
-# Jump 
+@export_group("Jump")
 @export var jump_velocity := -380.0
 @export var coyote_time := 0.12 # Jump after leaving the floor (0.08 → 0.15 seconds)
 @export var jump_buffer_time := 0.10  # Buffer jump to trigger on landing (0.08 → 0.12 seconds)
 
-# Run
+@export_group("Run")
 @export var min_speed: float = 40.0
 @export var max_speed: float = 620.0
 @export var accel: float = 20.0
 @export var brake: float = 900.0
 
-# Animation
+@export_group("Animation")
 @export var sprint_threshold: float = 320.0
 @export var min_anim_scale: float = 0.8
 @export var max_anim_scale: float = 1.6
@@ -23,7 +23,7 @@ var run_anim_speed : float
 
 var jumped := false
 
-# Hit
+@export_group("Hit")
 @export var invincible_time := 0.8
 @export var blink_interval := 0.08
 @export var flash_red_time := 0.4
