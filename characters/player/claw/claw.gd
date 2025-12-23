@@ -2,8 +2,8 @@ class_name Claw extends Node2D
 
 signal creature_captured(creature: Node2D)
 
-@export var max_range := 500.0
-@export var claw_speed := 800.0
+@export var extend_time := 0.3 # Time in seconds for claw to reach target
+@export var retract_time := 0.2 # Time in seconds for claw to return
 @export var hook_color := Color(0.8, 0.8, 0.8)
 @export var rope_width := 2.0
 
@@ -12,6 +12,10 @@ var grapple_target: Vector2
 var hook_position: Vector2
 var hit_creature: Node2D
 var track_crosshair := true # Whether to update target to mouse position
+var is_retracting := false # Whether claw is coming back
+var grapple_timer := 0.0 # Time elapsed since grapple started
+var grapple_start_pos: Vector2 # Where the player was when grapple started
+var initial_distance := 0.0 # Distance to target when grapple starts
 
 @onready var line: Line2D = $Rope
 @onready var hook_sprite: Sprite2D = $ClawSprite
@@ -22,7 +26,7 @@ func _ready() -> void:
 	line.visible = false
 	hook_sprite.visible = false
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	if is_grappling:
 		_update_grapple(delta)
 	
@@ -37,41 +41,52 @@ func shoot_grapple(target_pos: Vector2) -> bool:
 		return false
 	
 	var distance = global_position.distance_to(target_pos)
-	if distance > max_range:
-		target_pos = global_position + (target_pos - global_position).normalized() * max_range
 	
 	grapple_target = target_pos
 	hook_position = global_position
+	grapple_start_pos = global_position
 	is_grappling = true
+	is_retracting = false
+	grapple_timer = 0.0
 	line.visible = true
 	hook_sprite.visible = true
 	hit_creature = null
+	initial_distance = distance
 	
 	return true
 
 func _update_grapple(delta: float) -> void:
-	# Update target to current mouse position if tracking
-	if track_crosshair:
-		var mouse_pos = get_global_mouse_position()
-		var distance = global_position.distance_to(mouse_pos)
-		if distance > max_range:
-			grapple_target = global_position + (mouse_pos - global_position).normalized() * max_range
-		else:
+	grapple_timer += delta
+	
+	var total_time = extend_time + retract_time
+	
+	# Force complete if time exceeded
+	if grapple_timer >= total_time:
+		_finish_retract()
+		return
+	
+	if grapple_timer < extend_time:
+		# Extending phase: interpolate from start to current mouse position
+		# Update target to track mouse during extension
+		if track_crosshair:
+			var mouse_pos = get_global_mouse_position()
 			grapple_target = mouse_pos
-	
-	var direction = (grapple_target - hook_position).normalized()
-	var distance_to_target = hook_position.distance_to(grapple_target)
-	
-	if distance_to_target < claw_speed * delta:
-		# Reached target
-		hook_position = grapple_target
-		_check_creature_hit()
-		_retract_grapple()
-	else:
-		# Move hook toward target
-		hook_position += direction * claw_speed * delta
+		
+		var t = grapple_timer / extend_time
+		hook_position = grapple_start_pos.lerp(grapple_target, t)
 		hook_sprite.global_position = hook_position
 		_check_creature_hit()
+		
+		if not is_retracting and t >= 1.0:
+			is_retracting = true
+	else:
+		# Retracting phase: interpolate from target back to player
+		var retract_progress = (grapple_timer - extend_time) / retract_time
+		hook_position = grapple_target.lerp(global_position, retract_progress)
+		hook_sprite.global_position = hook_position
+		
+		if retract_progress >= 1.0:
+			_finish_retract()
 
 func _check_creature_hit() -> void:
 	if hit_creature:
@@ -90,13 +105,14 @@ func _check_creature_hit() -> void:
 		if creature.is_in_group("creatures"):
 			hit_creature = creature
 			creature_captured.emit(creature)
-			_retract_grapple()
+			_finish_retract()
 
-func _retract_grapple() -> void:
+func _finish_retract() -> void:
 	is_grappling = false
+	is_retracting = false
 	line.visible = false
 	hook_sprite.visible = false
 
 func cancel_grapple() -> void:
 	if is_grappling:
-		_retract_grapple()
+		_finish_retract()

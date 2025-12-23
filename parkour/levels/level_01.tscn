@@ -52,6 +52,7 @@ chunk_scenes = Array[PackedScene]([ExtResource("1_y30sp"), ExtResource("6_jax3h"
 [node name="Player" parent="." instance=ExtResource("2_1arus")]
 z_index = 1
 position = Vector2(19, 150)
+jump_velocity = -340.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(221, -15)
