@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export_group("Jump")
 @export var jump_velocity := -380.0
 @export var coyote_time := 0.12 # Jump after leaving the floor (0.08 → 0.15 seconds)
-@export var jump_buffer_time := 0.10  # Buffer jump to trigger on landing (0.08 → 0.12 seconds)
+@export var jump_buffer_time := 0.10 # Buffer jump to trigger on landing (0.08 → 0.12 seconds)
 
 @export_group("Run")
 @export var min_speed: float = 40.0
@@ -17,9 +17,9 @@ extends CharacterBody2D
 @export var max_anim_scale: float = 1.6
 
 var speed_x: float
-var coyote_timer :float
-var jump_buffer_timer :float
-var run_anim_speed : float
+var coyote_timer: float
+var jump_buffer_timer: float
+var run_anim_speed: float
 
 var jumped := false
 
@@ -31,12 +31,29 @@ var jumped := false
 var _invincible := false
 var _hit_tween: Tween
 
+
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+@onready var sprite = $PlayerSprite
+@onready var claw: Node2D = $Claw
+
 
 func _ready() -> void:
 	speed_x = min_speed
+	#grappling_hook.creature_captured.connect(_on_creature_captured)
+
+func _on_creature_captured(creature: Node2D) -> void:
+	print("Captured creature: ", creature.name)
+	# Add your capture logic here:
+	# - Add to inventory
+	# - Play capture animation
+	# - Remove creature from world
+	creature.queue_free() # For now, just remove it
 
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("grapple"):
+		var mouse_pos = get_global_mouse_position()
+		claw.shoot_grapple(mouse_pos)
+	
 	if is_on_floor():
 		coyote_timer = coyote_time
 	else:
@@ -72,18 +89,18 @@ func _physics_process(delta: float) -> void:
 # --- Animation selection
 	if not is_on_floor():
 		if jumped:
-			$AnimatedSprite2D.play("jump" , 1)
+			sprite.play("jump", 1)
 			jumped = false
 	else:
-		run_anim_speed =  lerpf(
+		run_anim_speed = lerpf(
 			min_anim_scale,
 			max_anim_scale,
 			inverse_lerp(min_speed, max_speed, speed_x)
 		)
 		var run_anim := "run" if speed_x <= sprint_threshold else "sprint"
-		$AnimatedSprite2D.speed_scale = run_anim_speed
-		if $AnimatedSprite2D.animation != run_anim:
-			$AnimatedSprite2D.play(run_anim)
+		sprite.speed_scale = run_anim_speed
+		if sprite.animation != run_anim:
+			sprite.play(run_anim)
 
 func on_hit_reset_speed():
 	speed_x = min_speed
@@ -95,8 +112,6 @@ func _play_hit_fx() -> void:
 		return
 
 	_invincible = true
-	
-	var sprite = $AnimatedSprite2D
 
 	# Stop previous tween cleanly (prevents stacking bugs)
 	if _hit_tween and _hit_tween.is_valid():

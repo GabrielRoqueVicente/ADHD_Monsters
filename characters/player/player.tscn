@@ -1,9 +1,10 @@
-[gd_scene load_steps=25 format=3 uid="uid://e6o6o2mxcpyi"]
+[gd_scene load_steps=26 format=3 uid="uid://e6o6o2mxcpyi"]
 
 [ext_resource type="Script" uid="uid://i7u1kq0vobei" path="res://characters/player/player.gd" id="1_508ok"]
 [ext_resource type="Texture2D" uid="uid://dpmh6axi8rrsc" path="res://characters/player/jump-Sheet-Sheet.png" id="2_5dc8e"]
 [ext_resource type="Texture2D" uid="uid://f3a7vfkdlqv8" path="res://characters/player/run-2-Sheet.png" id="2_exd8k"]
 [ext_resource type="Texture2D" uid="uid://btakwhc0ncsbh" path="res://characters/player/run-Sheet.png" id="2_xxgcw"]
+[ext_resource type="PackedScene" uid="uid://dt63ic1vs7ick" path="res://characters/player/claw/claw.tscn" id="5_ixbpm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d2agh"]
 atlas = ExtResource("2_5dc8e")
@@ -156,13 +157,16 @@ height = 44.0
 [node name="Player" type="CharacterBody2D" groups=["players"]]
 script = ExtResource("1_508ok")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(32, 32)
 sprite_frames = SubResource("SpriteFrames_x5dtk")
 animation = &"run"
 autoplay = "run"
 flip_h = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
 position = Vector2(36, 43)
 shape = SubResource("CapsuleShape2D_508ok")
+
+[node name="Claw" parent="." instance=ExtResource("5_ixbpm")]
+position = Vector2(51, 33)

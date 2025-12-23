@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dt63ic1vs7ick"]
+
+[ext_resource type="Script" uid="uid://dqwnhhu52hp0g" path="res://characters/player/claw/claw.gd" id="1_lh6ao"]
+[ext_resource type="Script" uid="uid://d1niaanvpnmll" path="res://characters/player/claw/crosshair.gd" id="2_dfoaj"]
+[ext_resource type="Texture2D" uid="uid://bv7ejnegm4hrm" path="res://characters/player/claw/crosshair.png" id="2_i47pn"]
+
+[node name="Claw" type="Node2D"]
+script = ExtResource("1_lh6ao")
+
+[node name="Rope" type="Line2D" parent="."]
+
+[node name="ClawSprite" type="Sprite2D" parent="."]
+
+[node name="crosshair" type="Sprite2D" parent="."]
+z_index = 100
+scale = Vector2(0.05663335, 0.05663335)
+texture = ExtResource("2_i47pn")
+script = ExtResource("2_dfoaj")
