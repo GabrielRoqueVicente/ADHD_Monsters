@@ -22,7 +22,7 @@ func _ready() -> void:
 	line.visible = false
 	hook_sprite.visible = false
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if is_grappling:
 		_update_grapple(delta)
 	
