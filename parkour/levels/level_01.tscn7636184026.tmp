@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://naojunc4d4hf"]
+
+[ext_resource type="Script" uid="uid://cly8je7w13j2o" path="res://parkour/levels/level.gd" id="1_58yew"]
+[ext_resource type="Texture2D" uid="uid://c88ma1esunnl2" path="res://parkour/parallaxes/sprites/forest_far_tmp.png" id="1_aixj0"]
+[ext_resource type="PackedScene" uid="uid://bcror0bvx07fe" path="res://parkour/chunks/forest/chunk_forest_1.tscn" id="1_y30sp"]
+[ext_resource type="PackedScene" uid="uid://e6o6o2mxcpyi" path="res://characters/player/player.tscn" id="2_1arus"]
+[ext_resource type="Texture2D" uid="uid://5wetak12ynmd" path="res://parkour/parallaxes/sprites/forest_near_tmp.png" id="2_58yew"]
+
+[node name="Level_01" type="Node2D"]
+script = ExtResource("1_58yew")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(240, 135)
+zoom = Vector2(4, 4)
+
+[node name="ParallaxFar" type="Parallax2D" parent="."]
+scroll_scale = Vector2(2, 1)
+repeat_size = Vector2(112, 0)
+repeat_times = 30
+
+[node name="SpriteFar" type="Sprite2D" parent="ParallaxFar"]
+texture = ExtResource("1_aixj0")
+centered = false
+
+[node name="ParallaxNear" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.6, 1)
+scroll_offset = Vector2(602, 5)
+repeat_size = Vector2(48, 0)
+repeat_times = 100
+
+[node name="SpriteNear" type="Sprite2D" parent="ParallaxNear"]
+texture = ExtResource("2_58yew")
+centered = false
+
+[node name="Chunks" type="Node2D" parent="."]
+
+[node name="Chunk" parent="Chunks" instance=ExtResource("1_y30sp")]
+z_index = 1
+position = Vector2(0, 199)
+scale = Vector2(0.75, 0.75)
+
+[node name="Chunk2" parent="Chunks" instance=ExtResource("1_y30sp")]
+z_index = 1
+position = Vector2(480, 199)
+scale = Vector2(0.75, 0.75)
+
+[node name="Player" parent="." instance=ExtResource("2_1arus")]
+z_index = 1
+position = Vector2(19, 150)

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bx7gvudxntan4"]
+
+[ext_resource type="PackedScene" uid="uid://bcror0bvx07fe" path="res://parkour/chunks/forest/chunk_forest_1.tscn" id="1_vuedt"]
+[ext_resource type="PackedScene" uid="uid://cjyov5r62f7vi" path="res://parkour/obstacles/log.tscn" id="2_xbgoc"]
+
+[node name="Chunk" instance=ExtResource("1_vuedt")]
+
+[node name="log" parent="." index="1" instance=ExtResource("2_xbgoc")]
+position = Vector2(317, 16)

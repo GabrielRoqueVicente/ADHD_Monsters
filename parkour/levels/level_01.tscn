@@ -1,0 +1,94 @@
+[gd_scene load_steps=8 format=3 uid="uid://naojunc4d4hf"]
+
+[ext_resource type="Script" uid="uid://cly8je7w13j2o" path="res://parkour/levels/level.gd" id="1_58yew"]
+[ext_resource type="PackedScene" uid="uid://bcror0bvx07fe" path="res://parkour/chunks/forest/chunk_forest_1.tscn" id="1_y30sp"]
+[ext_resource type="PackedScene" uid="uid://e6o6o2mxcpyi" path="res://characters/player/player.tscn" id="2_1arus"]
+[ext_resource type="Texture2D" uid="uid://c638g5s2ymkc7" path="res://parkour/parallaxes/sprites/back.png" id="2_7r1al"]
+[ext_resource type="Texture2D" uid="uid://04huc3njxxcl" path="res://parkour/parallaxes/sprites/middle.png" id="3_jax3h"]
+[ext_resource type="Texture2D" uid="uid://b4k7rihkfr5gm" path="res://parkour/parallaxes/sprites/front.png" id="4_nnnxu"]
+[ext_resource type="PackedScene" uid="uid://bx7gvudxntan4" path="res://parkour/chunks/forest/chunk_forest_2.tscn" id="6_jax3h"]
+
+[node name="Level_01" type="Node2D"]
+script = ExtResource("1_58yew")
+scroll_speed = 260.0
+
+[node name="ParallaxFar" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.4, 0.9)
+scroll_offset = Vector2(0, -12)
+repeat_size = Vector2(80, 0)
+repeat_times = 30
+
+[node name="SpriteFar" type="Sprite2D" parent="ParallaxFar"]
+position = Vector2(2, 1)
+texture = ExtResource("2_7r1al")
+centered = false
+
+[node name="ParallaxMiddle" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.7, 1)
+scroll_offset = Vector2(0, -110)
+repeat_size = Vector2(112, 0)
+repeat_times = 25
+
+[node name="SpriteMiddle" type="Sprite2D" parent="ParallaxMiddle"]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_jax3h")
+centered = false
+
+[node name="ParallaxNear" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.9, 1)
+scroll_offset = Vector2(0, -89)
+repeat_size = Vector2(240, 0)
+repeat_times = 10
+
+[node name="SpriteNear" type="Sprite2D" parent="ParallaxNear"]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_nnnxu")
+centered = false
+
+[node name="Chunks" type="Node2D" parent="."]
+z_index = 10
+
+[node name="Chunk" parent="Chunks" instance=ExtResource("1_y30sp")]
+z_index = 1
+position = Vector2(0, 199)
+scale = Vector2(0.75, 0.75)
+
+[node name="Chunk2" parent="Chunks" instance=ExtResource("1_y30sp")]
+z_index = 1
+position = Vector2(480, 199)
+scale = Vector2(0.75, 0.75)
+
+[node name="Chunk3" parent="Chunks" instance=ExtResource("1_y30sp")]
+z_index = 1
+position = Vector2(960, 199)
+scale = Vector2(0.75, 0.75)
+
+[node name="Chunk4" parent="Chunks" instance=ExtResource("6_jax3h")]
+position = Vector2(1440, 199.00002)
+scale = Vector2(0.75, 0.75)
+
+[node name="Chunk5" parent="Chunks" instance=ExtResource("1_y30sp")]
+z_index = 1
+position = Vector2(1920.0001, 199)
+scale = Vector2(0.75, 0.75)
+
+[node name="Chunk6" parent="Chunks" instance=ExtResource("1_y30sp")]
+z_index = 1
+position = Vector2(2400, 199)
+scale = Vector2(0.75, 0.75)
+
+[node name="Chunk7" parent="Chunks" instance=ExtResource("6_jax3h")]
+position = Vector2(2880, 199.00002)
+scale = Vector2(0.75, 0.75)
+
+[node name="Chunk8" parent="Chunks" instance=ExtResource("6_jax3h")]
+position = Vector2(3360, 199.00002)
+scale = Vector2(0.75, 0.75)
+
+[node name="Player" parent="." instance=ExtResource("2_1arus")]
+z_index = 1
+position = Vector2(19, 150)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(221, -15)
+zoom = Vector2(4, 4)

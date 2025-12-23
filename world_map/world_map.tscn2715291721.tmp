@@ -1,0 +1,133 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgd7ony34gona"]
+
+[ext_resource type="Texture2D" uid="uid://cs7fd780y2wng" path="res://world_map/world_map.png" id="1_088kp"]
+[ext_resource type="Script" uid="uid://dsftyenirxovh" path="res://world_map/world_map.gd" id="1_wrpkp"]
+[ext_resource type="PackedScene" uid="uid://daloeqxrcm2ny" path="res://world_map/location_pin/location_pin.tscn" id="2_yw1td"]
+
+[node name="WorldMap" type="Node2D"]
+script = ExtResource("1_wrpkp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-43.999996, 32.999996)
+scale = Vector2(9.72, 9.72)
+texture = ExtResource("1_088kp")
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="LocationPins" type="Node" parent="."]
+
+[node name="LocationPin" parent="LocationPins" instance=ExtResource("2_yw1td")]
+offset_left = -1229.0
+offset_top = -264.0
+offset_right = -1197.0
+offset_bottom = -232.0
+scale = Vector2(4, 4)
+level = 1
+neighbour_right = 2
+
+[node name="LocationPin2" parent="LocationPins" instance=ExtResource("2_yw1td")]
+offset_left = -1063.0
+offset_top = -261.0
+offset_right = -1031.0
+offset_bottom = -229.0
+scale = Vector2(4, 4)
+level = 2
+neighbour_top = 3
+neighbour_left = 1
+neighbour_right = 5
+
+[node name="LocationPin3" parent="LocationPins" instance=ExtResource("2_yw1td")]
+offset_left = -1170.0
+offset_top = -446.0
+offset_right = -1138.0
+offset_bottom = -414.0
+scale = Vector2(4, 4)
+level = 3
+neighbour_top = 4
+neighbour_bottom = 2
+
+[node name="LocationPin4" parent="LocationPins" instance=ExtResource("2_yw1td")]
+offset_left = -1171.0
+offset_top = -629.0
+offset_right = -1139.0
+offset_bottom = -597.0
+scale = Vector2(4, 4)
+level = 4
+neighbour_top = 8
+neighbour_left = 8
+neighbour_right = 11
+
+[node name="LocationPin5" parent="LocationPins" instance=ExtResource("2_yw1td")]
+offset_left = -849.0
+offset_top = -320.0
+offset_right = -817.0
+offset_bottom = -288.0
+scale = Vector2(4, 4)
+level = 5
+neighbour_top = 6
+neighbour_left = 2
+neighbour_right = 6
+
+[node name="LocationPin6" parent="LocationPins" instance=ExtResource("2_yw1td")]
+offset_left = -752.0
+offset_top = -494.0
+offset_right = -720.0
+offset_bottom = -462.0
+scale = Vector2(4, 4)
+level = 6
+neighbour_top = 7
+neighbour_bottom = 5
+
+[node name="LocationPin7" parent="LocationPins" instance=ExtResource("2_yw1td")]
+offset_left = -888.0
+offset_top = -631.0
+offset_right = -856.0
+offset_bottom = -599.0
+scale = Vector2(4, 4)
+level = 7
+neighbour_top = 10
+neighbour_bottom = 6
+neighbour_left = 11
+
+[node name="LocationPin8" parent="LocationPins" instance=ExtResource("2_yw1td")]
+offset_left = -1297.0
+offset_top = -747.0
+offset_right = -1265.0
+offset_bottom = -715.0
+scale = Vector2(4, 4)
+level = 8
+neighbour_top = 9
+neighbour_bottom = 4
+
+[node name="LocationPin9" parent="LocationPins" instance=ExtResource("2_yw1td")]
+offset_left = -1006.0
+offset_top = -931.0
+offset_right = -974.0
+offset_bottom = -899.0
+scale = Vector2(4, 4)
+level = 9
+neighbour_left = 8
+neighbour_right = 10
+
+[node name="LocationPin10" parent="LocationPins" instance=ExtResource("2_yw1td")]
+offset_left = -743.0
+offset_top = -746.0
+offset_right = -711.0
+offset_bottom = -714.0
+scale = Vector2(4, 4)
+level = 10
+neighbour_top = 9
+neighbour_bottom = 7
+
+[node name="LocationPin11" parent="LocationPins" instance=ExtResource("2_yw1td")]
+offset_left = -1025.0
+offset_top = -631.0
+offset_right = -993.0
+offset_bottom = -599.0
+scale = Vector2(4, 4)
+level = 11
+neighbour_left = 4
+neighbour_right = 7
+
+[node name="Roads" type="Node" parent="."]

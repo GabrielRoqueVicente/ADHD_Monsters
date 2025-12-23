@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://daloeqxrcm2ny"]
+
+[ext_resource type="Texture2D" uid="uid://dp578bih5rgj3" path="res://world_map/location_pin/button-Sheet.png" id="1_3c0t6"]
+[ext_resource type="Script" uid="uid://bruih3ew8mx6a" path="res://world_map/location_pin/location_pin.gd" id="1_8cfeq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7u8g4"]
+atlas = ExtResource("1_3c0t6")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bn8u"]
+atlas = ExtResource("1_3c0t6")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3c0t6"]
+atlas = ExtResource("1_3c0t6")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5h8fw"]
+atlas = ExtResource("1_3c0t6")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u8crt"]
+animations = [{
+"frames": [{
+"duration": 0.35,
+"texture": SubResource("AtlasTexture_3c0t6")
+}, {
+"duration": 0.55,
+"texture": SubResource("AtlasTexture_5h8fw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="LocationPin" type="TextureButton"]
+light_mask = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = -928.0
+offset_bottom = -508.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = SubResource("AtlasTexture_7u8g4")
+texture_hover = SubResource("AtlasTexture_1bn8u")
+script = ExtResource("1_8cfeq")
+
+[node name="ButtonMashSprite" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(16.216217, 16.216135)
+sprite_frames = SubResource("SpriteFrames_u8crt")
+frame_progress = 0.2753108
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

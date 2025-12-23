@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjyov5r62f7vi"]
+
+[ext_resource type="Script" uid="uid://8krqrchsdadd" path="res://parkour/obstacles/log.gd" id="1_hnet5"]
+[ext_resource type="Texture2D" uid="uid://ckhouahblg6jc" path="res://parkour/obstacles/sprites/log.png" id="1_iueub"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hnet5"]
+size = Vector2(31, 26)
+
+[node name="log" type="Area2D"]
+script = ExtResource("1_hnet5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("1_iueub")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, -3)
+shape = SubResource("RectangleShape2D_hnet5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

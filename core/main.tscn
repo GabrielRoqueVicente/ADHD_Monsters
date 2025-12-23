@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqb5xc3ib6ou0"]
+
+[ext_resource type="PackedScene" uid="uid://cgd7ony34gona" path="res://world_map/world_map.tscn" id="1_xiose"]
+
+[node name="Main" type="Node2D"]
+
+[node name="WorldMap" parent="." instance=ExtResource("1_xiose")]
+
+[node name="CurrentLevel" type="Node" parent="."]
+
+[node name="Transitions" type="CanvasLayer" parent="."]
